@@ -16,7 +16,7 @@ public class LogInOTUS {
     private WebDriver driver;
 
 
-    @BeforeAll
+    @BeforeEach
 //    Открыть Chrome
     public void openBrouser() {
         WebDriverManager.chromedriver().setup();
