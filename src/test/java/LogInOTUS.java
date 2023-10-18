@@ -41,6 +41,7 @@ public class LogInOTUS {
         //проверяем, что вход успешный
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".header3__user-info-name")));
 //   3. Войти в личный кабинет
+
 //    В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
 //    Нажать сохранить
 //    Открыть https://otus.ru в "чистом браузере"
