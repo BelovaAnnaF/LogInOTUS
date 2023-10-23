@@ -21,14 +21,10 @@ public class LogInOTUS {
     private final String email = System.getProperty("login");
     private final String password = System.getProperty("pwd");
 
-    @BeforeAll
-    public static void seupBrouser(){
-        WebDriverManager.firefoxdriver().setup();
-    }
-
     @BeforeEach
 //    Открыть Chrome
     public void openBrouser() {
+        WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
         options.addArguments("-fullscreen");
         driver = new FirefoxDriver(options);
@@ -43,6 +39,7 @@ public class LogInOTUS {
 
     @Test
     public void loginOtus() {
+
 //   1. Открыть https://otus.ru
         driver.get("https://otus.ru");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));//ждем окончания загрузки сайта
@@ -53,17 +50,17 @@ public class LogInOTUS {
         //ввести логин пароль
 
         driver.findElement(By.xpath("//div[contains(text(), 'Войдите в свой аккаунт')]/..//label[contains(text(),'Электронная почта')]/..")).click();
-//        driver.findElement(By.cssSelector("input.js-email-input[placeholder='Электронная почта']")).sendKeys(email);//login "dafome4086@aicogz.com"
-        driver.findElement(By.cssSelector("input[name='email']")).sendKeys("dafome4086@aicogz.com");//login "dafome4086@aicogz.com"
+//        driver.findElement(By.cssSelector("//input[@name='email']")).sendKeys(email);//login "dafome4086@aicogz.com"
+        driver.findElement(By.cssSelector("//input[@name='email']")).sendKeys("dafome4086@aicogz.com");//login "dafome4086@aicogz.com"
         driver.findElement(By.xpath("//div[contains(text(), 'Войдите в свой аккаунт')]/..//label[contains(text(),'Пароль')]/..")).click();
-//        driver.findElement(By.cssSelector("input[type='password']")).sendKeys(password);//pwd "OtusTest12#"
-        driver.findElement(By.cssSelector("input[type='password']")).sendKeys("OtusTest12#");//pwd "OtusTest12#"
+//        driver.findElement(By.cssSelector("//input[@type='password']")).sendKeys(password);//pwd "OtusTest12#"
+        driver.findElement(By.cssSelector("//input[@type='password']")).sendKeys("OtusTest12#");//pwd "OtusTest12#"
         driver.findElement(By.xpath("//div[contains(text(), 'Войти')]"))
                 .click();//нажать войти
         //проверяем, что вход успешный
-       // wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".header3__user-info-name")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("//img[@src='/_next/static/images/img/pink-owl-8e5a051ea32951df20c17b6479d3677f.png']")));
 //   3. Войти в личный кабинет
-
+        driver.get("https://otus.ru/learning");
 //    В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
 //    Нажать сохранить
 //    Открыть https://otus.ru в "чистом браузере"
