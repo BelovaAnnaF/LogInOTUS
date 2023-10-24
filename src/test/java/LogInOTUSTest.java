@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Properties;
 
-public class LogInOTUS {
+public class LogInOTUSTest {
     private WebDriver driver;
     Properties property = new Properties(System.getProperties());
 
@@ -102,7 +102,7 @@ public class LogInOTUS {
         driver.findElement(By.xpath("//input[@value='True']/..")).click();
         driver.findElement(By.xpath("//input[@title='Гибкий график']/..")).click();
         //добавить не менее двух контактов
-        driver.findElement()
+//        driver.findElement()
 //    Нажать сохранить
 //    Открыть https://otus.ru в "чистом браузере"
 //    Авторизоваться на сайе
