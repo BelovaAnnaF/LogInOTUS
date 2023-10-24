@@ -70,32 +70,39 @@ public class LogInOTUS {
 //    В разделе "О себе" заполнить все поля "Личные данные" и добавить не менее двух контактов
         //перейти в раздел "Осебе"
         driver.get("https://otus.ru/lk/biography/personal/");
-        //проверяем, что перешли в раздел Осебе
+        //проверяем, что перешли в раздел О себе
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("h3.text.text_h2.text_pad")));
         //Заполняем все поля "Личные данные"
         clearAndEnter(By.id("id_fname"),"Тест");
         clearAndEnter(By.id("id_lname"),"Тестов");
         clearAndEnter(By.id("id_blog_name"),"Test Testoff");
-        clearAndEnter(By.cssSelector("input[name='date_of_birth']"),"12.10.2003");
         clearAndEnter(By.id("id_fname_latin"),"Test");
         clearAndEnter(By.id("id_lname_latin"),"Testoff");
+        clearAndEnter(By.cssSelector("input[name='date_of_birth']"),"12.10.2003");
+        driver.findElement(By.cssSelector(".js-lk-cv>.container.container-padding-bottom")).click();
 
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div[data-ajax-slave='/lk/biography/cv/lookup/cities/by_country/']")));
         driver.findElement(By.cssSelector("div[data-ajax-slave='/lk/biography/cv/lookup/cities/by_country/']")).click();
         wait.until(ExpectedConditions
                 .presenceOfElementLocated(By.cssSelector(".lk-cv-block__select-scroll.lk-cv-block__select-scroll_country.js-custom-select-options")));
-        js.executeScript("arguments[0].scrollIntoView();", driver.findElement(By.xpath("//p[contains(text(), 'Контактная информация')]")));
         driver.findElement(By.cssSelector(".lk-cv-block__select-scroll.lk-cv-block__select-scroll_country.js-custom-select-options>button[data-value='2']")).click();
+        driver.findElement(By.cssSelector(".js-lk-cv>.container.container-padding-bottom")).click();
+
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[data-title='Город']")));
-        driver.findElement(By.cssSelector("input[data-title='Город']")).click();
+        driver.findElement(By.xpath("//input[@data-title='Город']/../div")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-empty='Город']")));
-        driver.findElement(By.cssSelector("button[title='Орша']")).click();
+        driver.findElement(By.cssSelector("button[title='Борисов']")).click();
+
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[data-title='Уровень знания английского языка']")));
-        driver.findElement(By.xpath("//input[@data-title='Уровень знания английского языка']/..")).click();
+        driver.findElement(By.xpath("//input[@data-title='Уровень знания английского языка']/../div")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[title='Начальный уровень (Beginner)']")));
         driver.findElement(By.cssSelector("button[title='Начальный уровень (Beginner)']")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.container__row.lk-cv-block__line.lk-cv-block__line_double")));
+
         driver.findElement(By.xpath("//input[@value='True']/..")).click();
-        System.out.println("true");
+        driver.findElement(By.xpath("//input[@title='Гибкий график']/..")).click();
+        //добавить не менее двух контактов
+        driver.findElement()
 //    Нажать сохранить
 //    Открыть https://otus.ru в "чистом браузере"
 //    Авторизоваться на сайе
