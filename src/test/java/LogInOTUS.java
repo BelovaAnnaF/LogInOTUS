@@ -38,7 +38,7 @@ public class LogInOTUS {
     }
 
     @Test
-    public void loginOtus() {
+    public void loginOtusTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
