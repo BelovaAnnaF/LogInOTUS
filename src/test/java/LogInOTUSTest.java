@@ -17,7 +17,7 @@ public class LogInOTUSTest {
     private WebDriver driver;
     Properties property = new Properties(System.getProperties());
 
-    private final String base_url = property.getProperty("base.url");
+    private final String base_url = property.getProperty("base.url", "https://otus.ru");
     private final String email = System.getProperty("login");
     private final String password = System.getProperty("pwd");
 
@@ -26,7 +26,7 @@ public class LogInOTUSTest {
     public void openBrouser() {
         WebDriverManager.firefoxdriver().setup();
         FirefoxOptions options = new FirefoxOptions();
-        options.addArguments("-fullscreen");
+        options.addArguments("--fullscreen");
         driver = new FirefoxDriver(options);
     }
     @AfterEach
@@ -40,15 +40,17 @@ public class LogInOTUSTest {
     @Test
     public void loginOtusTest() {
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
 
 //   1. Открыть https://otus.ru
-        driver.get(base_url);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));//ждем окончания загрузки сайта
+        driver.get(base_url + "/");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        //ждем окончания загрузки сайта
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[contains(text(), 'Войти')]")));
 //   2. Авторизоваться на сайте
+        wait.until(ExpectedConditions.not(ExpectedConditions.visibilityOfElementLocated(By.xpath
+                        ("//div[contains(text(), 'Войдите в свой аккаунт')]")))); //прооверть, что форма авторизации не отображается
         driver.findElement(By.xpath("//button[contains(text(), 'Войти')]")).click();//нажать кнопку войти
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath
                 ("//div[contains(text(), 'Войдите в свой аккаунт')]")));//проверить, что открылось окно ввода логина/пароля
         //ввести логин пароль
 
@@ -56,7 +58,6 @@ public class LogInOTUSTest {
         driver.findElement(By.xpath("//input[@name='email']")).sendKeys(email);//login "dafome4086@aicogz.com"
 //        driver.findElement(By.xpath("//input[@name='email']")).sendKeys("dafome4086@aicogz.com");//login "dafome4086@aicogz.com"
         driver.findElement(By.xpath("//div[contains(text(), 'Войдите в свой аккаунт')]/..//label[contains(text(),'Пароль')]/..")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='password']")));
         driver.findElement(By.xpath("//input[@type='password']")).sendKeys(password);//pwd "OtusTest12#"
 //        driver.findElement(By.xpath("//input[@type='password']")).sendKeys("OtusTest12#");//pwd "OtusTest12#"
         driver.findElement(By.xpath("//div[contains(text(), 'Войти')]"))
@@ -88,16 +89,13 @@ public class LogInOTUSTest {
         driver.findElement(By.cssSelector(".lk-cv-block__select-scroll_country.js-custom-select-options>button[data-value='2']")).click();
         driver.findElement(By.cssSelector(".js-lk-cv>.container.container-padding-bottom")).click();
 
-
         driver.findElement(By.xpath("//input[@data-title='Город']/../div")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[data-empty='Город']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button[data-empty='Город']")));
         driver.findElement(By.cssSelector("button[title='Борисов']")).click();
 
-       // wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[data-title='Уровень знания английского языка']")));
         driver.findElement(By.xpath("//input[@data-title='Уровень знания английского языка']/../div")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("button[title='Начальный уровень (Beginner)']")));
         driver.findElement(By.cssSelector("button[title='Начальный уровень (Beginner)']")).click();
-       // wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.container__row.lk-cv-block__line.lk-cv-block__line_double")));
 
         driver.findElement(By.xpath("//input[@value='True']/..")).click();
         driver.findElement(By.xpath("//input[@title='Гибкий график']/..")).click();
