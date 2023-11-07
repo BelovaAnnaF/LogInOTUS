@@ -102,7 +102,7 @@ public class LogInOTUSTest {
         //добавить не менее двух контактов
         wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".hide[data-modal-id='change-phone']")));//переписать провер
         driver.findElement(By.xpath("//button[contains(text(),'Указать телефон')]")).click();
-        wait.until()
+       // wait.until()
 //    Нажать сохранить
 //    Открыть https://otus.ru в "чистом браузере"
 //    Авторизоваться на сайе
